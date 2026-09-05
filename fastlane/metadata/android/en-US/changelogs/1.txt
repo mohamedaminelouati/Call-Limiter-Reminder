@@ -1,0 +1,1 @@
+Initial release of Call Limiter & Reminder: 100% Kotlin rewrite, call duration limits with seconds support, independent call reminders, OLED dark mode, and enhanced UI.

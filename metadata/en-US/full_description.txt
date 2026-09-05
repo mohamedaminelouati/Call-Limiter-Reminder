@@ -1,0 +1,15 @@
+<b>Call Limiter &amp; Reminder</b> is a modern, open-source, 100% Kotlin Android application that helps you take full control of your phone calls. Set custom duration limits, enable independent audio and vibration reminders, and automatically disconnect calls when time is up.
+
+<b>Key Features:</b>
+
+<ul>
+    <li><b>Precise Duration Limits:</b> Set call limits in hours, minutes, and seconds for individual contacts or globally for all calls.</li>
+    <li><b>Independent Call Reminders:</b> Receive customizable audio tones and gentle vibration alerts at selected intervals during calls without hanging up.</li>
+    <li><b>Automatic Call Disconnect:</b> Programmatically end calls once your set limit is reached.</li>
+    <li><b>Smooth Bottom Sheet Timer:</b> Intuitive wheel selector for swift and precise time configuration.</li>
+    <li><b>Emergency &amp; Call Start Buffers:</b> Add extra buffer seconds for urgent calls or delay the timer until call connection.</li>
+    <li><b>Modern Appearance:</b> Beautiful Light, Dark, and true Dark (OLED) modes adapting to your system theme.</li>
+    <li><b>100% Privacy &amp; Offline:</b> Operates completely offline with zero internet access, zero tracking, and zero ads.</li>
+</ul>
+
+Stay in control of your conversations and screen time with <b>Call Limiter &amp; Reminder</b> — clean, private, and fully customizable.
