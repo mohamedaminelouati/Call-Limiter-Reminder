@@ -11,7 +11,6 @@ import com.mohamedaminelouati.calllimiterreminder.R
 
 enum class FilterMode {
     ALL,
-    LOW_TIME,
     WHITELIST,
     ALPHABETICAL
 }
@@ -100,7 +99,6 @@ class SavedLimitsAdapter(
 
             val matchesFilter = when (currentFilterMode) {
                 FilterMode.ALL -> true
-                FilterMode.LOW_TIME -> item.remainingTime in 1..60
                 FilterMode.WHITELIST -> item.isWhitelisted
                 FilterMode.ALPHABETICAL -> true
             }

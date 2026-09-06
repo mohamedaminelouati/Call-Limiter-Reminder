@@ -75,6 +75,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var searchInput: TextInputEditText
     private lateinit var filterChipGroup: ChipGroup
     private lateinit var emptyStateText: MaterialTextView
+    private var currentAppliedTheme: String? = null
+    private var currentAppliedAccent: String? = null
 
     companion object {
         private const val NOTIFICATION_PERMISSION_CODE = 1001
@@ -83,6 +85,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         PreferenceHelper.init(this)
+        currentAppliedTheme = PreferenceHelper.getTheme()
+        currentAppliedAccent = PreferenceHelper.getAccentColor()
         ThemeUtils.applyTheme(this)
         super.onCreate(savedInstanceState)
 
@@ -149,7 +153,6 @@ class MainActivity : AppCompatActivity() {
 
         filterChipGroup.setOnCheckedStateChangeListener { _, checkedIds ->
             val mode = when (checkedIds.firstOrNull()) {
-                R.id.chip_filter_low_time -> FilterMode.LOW_TIME
                 R.id.chip_filter_unlimited -> FilterMode.WHITELIST
                 R.id.chip_filter_alphabetical -> FilterMode.ALPHABETICAL
                 else -> FilterMode.ALL
@@ -385,6 +388,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        if (currentAppliedTheme != PreferenceHelper.getTheme() || currentAppliedAccent != PreferenceHelper.getAccentColor()) {
+            recreate()
+            return
+        }
         updateSavedLimitsUI("Refresh")
     }
 

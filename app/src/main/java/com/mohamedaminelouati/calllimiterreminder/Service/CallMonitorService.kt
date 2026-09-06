@@ -177,6 +177,9 @@ class CallMonitorService : Service() {
         }
 
         if (state == TelephonyManager.CALL_STATE_OFFHOOK) {
+            if (wasInCall) {
+                return
+            }
             wasInCall = true
             elapsedTime = 0
 
@@ -334,21 +337,15 @@ class CallMonitorService : Service() {
 
                 if (isWarningReminderEnabled) {
                     if (isReminderOnlyMode) {
-                        for (threshold in warningThresholds) {
-                            if (elapsedTime >= threshold && !triggeredWarnings.contains(threshold)) {
-                                triggeredWarnings.add(threshold)
-                                triggerWarningAlert()
-                                break
-                            }
+                        if (warningThresholds.contains(elapsedTime) && !triggeredWarnings.contains(elapsedTime)) {
+                            triggeredWarnings.add(elapsedTime)
+                            triggerWarningAlert()
                         }
                     } else {
                         val remainingSeconds = (callTimeLimit / 1000) - elapsedTime
-                        for (threshold in warningThresholds) {
-                            if (remainingSeconds <= threshold && remainingSeconds > 0 && !triggeredWarnings.contains(threshold)) {
-                                triggeredWarnings.add(threshold)
-                                triggerWarningAlert()
-                                break
-                            }
+                        if (warningThresholds.contains(remainingSeconds) && !triggeredWarnings.contains(remainingSeconds)) {
+                            triggeredWarnings.add(remainingSeconds)
+                            triggerWarningAlert()
                         }
                     }
                 }
@@ -449,9 +446,11 @@ class CallMonitorService : Service() {
             val activeChannel = NotificationChannel(
                 channelIdActive,
                 getString(R.string.notification_channel_active_name),
-                NotificationManager.IMPORTANCE_HIGH
+                NotificationManager.IMPORTANCE_LOW
             ).apply {
-                setShowBadge(true)
+                setShowBadge(false)
+                setSound(null, null)
+                enableVibration(false)
                 description = getString(R.string.notification_channel_active_desc)
             }
 
@@ -514,7 +513,8 @@ class CallMonitorService : Service() {
             .setContentText(contentText)
             .setSmallIcon(R.drawable.ic_notification)
             .setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher_v2))
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setPriority(NotificationCompat.PRIORITY_LOW)
+            .setOnlyAlertOnce(true)
             .setOngoing(true)
             .setContentIntent(pendingIntent)
             .build()

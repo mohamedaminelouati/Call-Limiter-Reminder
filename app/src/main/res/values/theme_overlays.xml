@@ -95,4 +95,70 @@
         <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh_highContrast</item>
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest_highContrast</item>
     </style>
+
+    <style name="ThemeOverlay.CallLimiter.Accent.Green" parent="">
+        <item name="colorPrimary">#228729</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorPrimaryContainer">#E9F2E7</item>
+        <item name="colorOnPrimaryContainer">#002204</item>
+        <item name="colorSecondary">#2E7D32</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="colorSecondaryContainer">#DCEDC8</item>
+        <item name="colorOnSecondaryContainer">#1B5E20</item>
+    </style>
+
+    <style name="ThemeOverlay.CallLimiter.Accent.Blue" parent="">
+        <item name="colorPrimary">#5B5891</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorPrimaryContainer">#E3DFFF</item>
+        <item name="colorOnPrimaryContainer">#17124A</item>
+        <item name="colorSecondary">#5E5C71</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="colorSecondaryContainer">#E4DFF9</item>
+        <item name="colorOnSecondaryContainer">#1B1A2C</item>
+    </style>
+
+    <style name="ThemeOverlay.CallLimiter.Accent.Teal" parent="">
+        <item name="colorPrimary">#00796B</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorPrimaryContainer">#E0F2F1</item>
+        <item name="colorOnPrimaryContainer">#00201A</item>
+        <item name="colorSecondary">#00695C</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="colorSecondaryContainer">#B2DFDB</item>
+        <item name="colorOnSecondaryContainer">#004D40</item>
+    </style>
+
+    <style name="ThemeOverlay.CallLimiter.Accent.Orange" parent="">
+        <item name="colorPrimary">#E65100</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorPrimaryContainer">#FFE0B2</item>
+        <item name="colorOnPrimaryContainer">#3E1500</item>
+        <item name="colorSecondary">#EF6C00</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="colorSecondaryContainer">#FFCC80</item>
+        <item name="colorOnSecondaryContainer">#BF360C</item>
+    </style>
+
+    <style name="ThemeOverlay.CallLimiter.Accent.Rose" parent="">
+        <item name="colorPrimary">#C2185B</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorPrimaryContainer">#FCE4EC</item>
+        <item name="colorOnPrimaryContainer">#3B0017</item>
+        <item name="colorSecondary">#AD1457</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="colorSecondaryContainer">#F8BBD0</item>
+        <item name="colorOnSecondaryContainer">#880E4F</item>
+    </style>
+
+    <style name="ThemeOverlay.CallLimiter.Accent.Purple" parent="">
+        <item name="colorPrimary">#7B1FA2</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorPrimaryContainer">#F3E5F5</item>
+        <item name="colorOnPrimaryContainer">#260037</item>
+        <item name="colorSecondary">#6A1B9A</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="colorSecondaryContainer">#E1BEE7</item>
+        <item name="colorOnSecondaryContainer">#4A148C</item>
+    </style>
 </resources>

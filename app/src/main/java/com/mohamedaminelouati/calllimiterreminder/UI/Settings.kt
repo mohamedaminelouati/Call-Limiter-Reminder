@@ -49,12 +49,15 @@ class Settings : AppCompatActivity() {
     }
 
     private lateinit var selectedThemeText: TextView
+    private lateinit var selectedAccentColorText: TextView
     private lateinit var bufferValueText: TextView
     private lateinit var timeLimit: TextView
     private lateinit var whitelistSummaryText: TextView
     private lateinit var warningReminderTimeText: TextView
 
     private lateinit var backBtn: ImageView
+    private lateinit var accentColorLayout: LinearLayout
+    private lateinit var accentColorPreview: View
     private lateinit var bufferBar: SeekBar
     private lateinit var switchBtn: MaterialSwitch
     private lateinit var callStartBufferSwitchBtn: MaterialSwitch
@@ -81,6 +84,9 @@ class Settings : AppCompatActivity() {
         PreferenceHelper.init(this)
 
         selectedThemeText = findViewById(R.id.selected_theme_text)
+        selectedAccentColorText = findViewById(R.id.selected_accent_color_text)
+        accentColorLayout = findViewById(R.id.accent_color_layout)
+        accentColorPreview = findViewById(R.id.accent_color_preview)
         backBtn = findViewById(R.id.back_btn)
         layoutTheme = findViewById(R.id.theme)
         permissions = findViewById(R.id.permissions)
@@ -144,12 +150,18 @@ class Settings : AppCompatActivity() {
         } else {
             selectedThemeText.text = currentTheme
         }
+
+        val currentAccent = PreferenceHelper.getAccentColor()
+        selectedAccentColorText.text = getAccentDisplayName(currentAccent)
+        accentColorPreview.setBackgroundResource(getAccentDotDrawable(currentAccent))
+
         bufferBar.progress = index
         bufferValueText.text = formatBufferTime(bufferTime)
 
         limitResetForEachCallSwitchBtn.isChecked = islimitRestForEachCallEnabled
 
         layoutTheme.setOnClickListener { showThemeBottomSheet() }
+        accentColorLayout.setOnClickListener { showAccentColorBottomSheet() }
 
         backBtn.setOnClickListener { finish() }
 
@@ -329,6 +341,84 @@ class Settings : AppCompatActivity() {
         bottomSheetDialog.show()
     }
 
+    private fun getAccentDisplayName(accent: String): String {
+        return when (accent.lowercase()) {
+            "blue" -> getString(R.string.accent_blue)
+            "teal" -> getString(R.string.accent_teal)
+            "orange" -> getString(R.string.accent_orange)
+            "rose" -> getString(R.string.accent_rose)
+            "purple" -> getString(R.string.accent_purple)
+            else -> getString(R.string.accent_green)
+        }
+    }
+
+    private fun getAccentDotDrawable(accent: String): Int {
+        return when (accent.lowercase()) {
+            "blue" -> R.drawable.accent_dot_blue
+            "teal" -> R.drawable.accent_dot_teal
+            "orange" -> R.drawable.accent_dot_orange
+            "rose" -> R.drawable.accent_dot_rose
+            "purple" -> R.drawable.accent_dot_purple
+            else -> R.drawable.accent_dot_green
+        }
+    }
+
+    private fun showAccentColorBottomSheet() {
+        val bottomSheetDialog = BottomSheetDialog(this)
+        val sheetView = layoutInflater.inflate(R.layout.accent_color_bottom_sheet, null)
+        bottomSheetDialog.setContentView(sheetView)
+
+        val selectedAccent = PreferenceHelper.getAccentColor()
+
+        val optionGreen: LinearLayout = sheetView.findViewById(R.id.option_accent_green)
+        val optionBlue: LinearLayout = sheetView.findViewById(R.id.option_accent_blue)
+        val optionTeal: LinearLayout = sheetView.findViewById(R.id.option_accent_teal)
+        val optionOrange: LinearLayout = sheetView.findViewById(R.id.option_accent_orange)
+        val optionRose: LinearLayout = sheetView.findViewById(R.id.option_accent_rose)
+        val optionPurple: LinearLayout = sheetView.findViewById(R.id.option_accent_purple)
+
+        val greenRadio: RadioButton = sheetView.findViewById(R.id.radio_accent_green)
+        val blueRadio: RadioButton = sheetView.findViewById(R.id.radio_accent_blue)
+        val tealRadio: RadioButton = sheetView.findViewById(R.id.radio_accent_teal)
+        val orangeRadio: RadioButton = sheetView.findViewById(R.id.radio_accent_orange)
+        val roseRadio: RadioButton = sheetView.findViewById(R.id.radio_accent_rose)
+        val purpleRadio: RadioButton = sheetView.findViewById(R.id.radio_accent_purple)
+
+        when (selectedAccent.lowercase()) {
+            "blue" -> blueRadio.isChecked = true
+            "teal" -> tealRadio.isChecked = true
+            "orange" -> orangeRadio.isChecked = true
+            "rose" -> roseRadio.isChecked = true
+            "purple" -> purpleRadio.isChecked = true
+            else -> greenRadio.isChecked = true
+        }
+
+        val applyAndDismiss = { accentKey: String ->
+            PreferenceHelper.saveAccentColor(accentKey)
+            selectedAccentColorText.text = getAccentDisplayName(accentKey)
+            accentColorPreview.setBackgroundResource(getAccentDotDrawable(accentKey))
+            ThemeUtils.applyTheme(this@Settings)
+            recreate()
+            bottomSheetDialog.dismiss()
+        }
+
+        optionGreen.setOnClickListener { applyAndDismiss("green") }
+        optionBlue.setOnClickListener { applyAndDismiss("blue") }
+        optionTeal.setOnClickListener { applyAndDismiss("teal") }
+        optionOrange.setOnClickListener { applyAndDismiss("orange") }
+        optionRose.setOnClickListener { applyAndDismiss("rose") }
+        optionPurple.setOnClickListener { applyAndDismiss("purple") }
+
+        greenRadio.setOnClickListener { applyAndDismiss("green") }
+        blueRadio.setOnClickListener { applyAndDismiss("blue") }
+        tealRadio.setOnClickListener { applyAndDismiss("teal") }
+        orangeRadio.setOnClickListener { applyAndDismiss("orange") }
+        roseRadio.setOnClickListener { applyAndDismiss("rose") }
+        purpleRadio.setOnClickListener { applyAndDismiss("purple") }
+
+        bottomSheetDialog.show()
+    }
+
     private fun formatBufferTime(seconds: Int): String {
         return if (seconds < 60) {
             "$seconds s"
@@ -386,6 +476,8 @@ class Settings : AppCompatActivity() {
                 put("warning_sound_enabled", PreferenceHelper.getWarningSoundEnabled())
                 put("warning_vibration_enabled", PreferenceHelper.getWarningVibrationEnabled())
                 put("buffer_time", PreferenceHelper.getBufferTime())
+                put("theme", PreferenceHelper.getTheme())
+                put("accent_color", PreferenceHelper.getAccentColor())
             }
             rootJson.put("settings", settingsJson)
 
@@ -461,6 +553,12 @@ class Settings : AppCompatActivity() {
                 }
                 if (settingsJson.has("buffer_time")) {
                     PreferenceHelper.saveBufferTime(settingsJson.optInt("buffer_time"))
+                }
+                if (settingsJson.has("theme")) {
+                    PreferenceHelper.saveTheme(settingsJson.optString("theme"))
+                }
+                if (settingsJson.has("accent_color")) {
+                    PreferenceHelper.saveAccentColor(settingsJson.optString("accent_color"))
                 }
             }
 

@@ -16,6 +16,7 @@ object PreferenceHelper {
     private const val LIMIT = "limit"
     private const val SETTINGS_PREF = "settings_store"
     private const val THEME_KEY = "theme_key"
+    private const val ACCENT_COLOR_KEY = "accent_color_key"
     private const val BUFFER_TIME = "buffer_key"
     private const val CALL_START_BUFFER_KEY = "call_start_buffer_key"
     private const val TERMS_CONDITIONS = "terms_conditions_key"
@@ -125,6 +126,16 @@ object PreferenceHelper {
     @JvmStatic
     fun getTheme(): String {
         return settingsStore?.getString(THEME_KEY, "System") ?: "System"
+    }
+
+    @JvmStatic
+    fun saveAccentColor(accent: String) {
+        settingsEditor?.putString(ACCENT_COLOR_KEY, accent)?.apply()
+    }
+
+    @JvmStatic
+    fun getAccentColor(): String {
+        return settingsStore?.getString(ACCENT_COLOR_KEY, "green") ?: "green"
     }
 
     @JvmStatic

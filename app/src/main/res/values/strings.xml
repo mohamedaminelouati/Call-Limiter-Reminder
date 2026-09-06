@@ -99,7 +99,6 @@
     <string name="disable_optimization">Exempt</string>
     <string name="search_contacts_hint">Search by name or number...</string>
     <string name="filter_all">All</string>
-    <string name="filter_low_time">Low Time (&lt; 1m)</string>
     <string name="filter_unlimited">Whitelist</string>
     <string name="filter_alphabetical">A - Z</string>
     <string name="no_contacts_found">No matching contacts found</string>
@@ -125,4 +124,11 @@
     <string name="save">Save</string>
     <string name="undo">Undo</string>
     <string name="contact_name">Contact Name</string>
+    <string name="accent_color">Accent Color</string>
+    <string name="accent_green">Green (Default)</string>
+    <string name="accent_blue">Classic Blue</string>
+    <string name="accent_teal">Teal</string>
+    <string name="accent_orange">Amber Orange</string>
+    <string name="accent_rose">Rose Crimson</string>
+    <string name="accent_purple">Purple</string>
 </resources>

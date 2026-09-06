@@ -33,5 +33,19 @@ object ThemeUtils {
                 }
             }
         }
+        val accent = PreferenceHelper.getAccentColor()
+        activity.theme.applyStyle(getAccentOverlay(accent), true)
+    }
+
+    @JvmStatic
+    fun getAccentOverlay(accent: String): Int {
+        return when (accent.lowercase()) {
+            "blue" -> R.style.ThemeOverlay_CallLimiter_Accent_Blue
+            "teal" -> R.style.ThemeOverlay_CallLimiter_Accent_Teal
+            "orange" -> R.style.ThemeOverlay_CallLimiter_Accent_Orange
+            "rose" -> R.style.ThemeOverlay_CallLimiter_Accent_Rose
+            "purple" -> R.style.ThemeOverlay_CallLimiter_Accent_Purple
+            else -> R.style.ThemeOverlay_CallLimiter_Accent_Green
+        }
     }
 }
